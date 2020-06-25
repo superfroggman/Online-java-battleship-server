@@ -19,12 +19,14 @@ public class server {
         System.out.println("On what port should the server run on?");
         System.out.println("Press enter for default! (Port 8545)");
         while (!portSet) { //loop that runs until the port is set and accepted
-            String portString = new Scanner(System.in).nextLine();
-            if (portString.equals("")) { //if enter is pressed, sets default 8545
-                port = 8545;
-            } else {
+
+            //String portString = new Scanner(System.in).nextLine();
+            String portString = "";
+
+            if (!portString.equals("")) {
                 port = Integer.parseInt(portString);
             }
+
             try {
                 //opens the port for access to server.
                 serSock = new ServerSocket(port);
@@ -57,7 +59,7 @@ public class server {
                         System.out.println("Some stupid person killed it");
                         return;
                     }
-                    tempUser.out.println("What group do you want to connect to?"); //asks what group you want to connect to
+                    tempUser.out.println("connectGroup?"); //asks what group you want to connect to
                     tempUser.out.flush();
                     String receiveRead; //initializes the variable
                     try {
@@ -67,38 +69,13 @@ public class server {
                         return;
                     }
                     if (!server.CheckGroups(receiveRead)) { //checks if group exist, else creates it
-                        tempUser.out.println("Private Group? (y/n)");
-                        tempUser.out.flush();
-                        boolean groupType = false;
-                        String type;
-                        try {
-                            type = tempUser.in.readLine();
-                        } catch (IOException e) {
-                            System.out.println("Some stupid person killed it");
-                            return;
-                        }
-                        int maxUsers = 0;
-                        if (type.equals("yes") || type.equals("Yes") || type.equals("y")) { //checks if a private group or not i selected
-                            groupType = true;
-                            tempUser.out.println("Max number of users? (0 for unlimited)");
-                            tempUser.out.flush();
-                            try {
-                                maxUsers = Integer.parseInt(tempUser.in.readLine());
-                            } catch (IOException e) {
-                                System.out.println("Some stupid person killed it");
-                                return;
-                            }
-                        } else if (!(type.equals("no") || type.equals("No") || type.equals("n"))) {
-                            tempUser.out.println("Defaulting to no!");
-                            tempUser.out.flush();
-                        }
-                        groups.add(new Group(receiveRead, groupType, maxUsers)); //creates the group and inserts the groupname, grouptype and also the max number of users
-                    }
 
+                        groups.add(new Group(receiveRead)); //creates the group and inserts the groupname
+                    }
 
                     int groupNumber = server.CheckGroupNumber(receiveRead);
                     Group tmpGroup = groups.get(groupNumber);
-                    if (server.CheckPlayersConnected() == server.CheckMaxPlayer(groupNumber) && server.CheckMaxPlayer(groupNumber) != 0) {
+                    if (server.CheckPlayersConnected() >= 2) {
                         tempUser.out.println("This Group is full, connect to another!");
                         tempUser.out.flush();
                     } else {
@@ -111,11 +88,6 @@ public class server {
             }
 
 
-        }
-
-
-        public static int CheckMaxPlayer ( int groupNumber){
-            return groups.get(groupNumber).maxUsers;
         }
 
         public static int CheckPlayersConnected () {

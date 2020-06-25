@@ -34,7 +34,7 @@ public class User {
          * Creates the user, sets the username and also prints the logged in users in the group.
          */
         users = server.groups.get(groupNumber).users;
-        out.println("Whats is your username?"); //sends msg to client
+        out.println("username?"); //sends msg to client
         out.flush();
         String receiveMessage;
         username = "Guest";
@@ -59,9 +59,12 @@ public class User {
         }
         System.out.println("User \"" + username + "\" created!");
         users = server.groups.get(groupNumber).users;
+        System.out.print("Users in group: ");
         for (User user : users) {
-            System.out.println("Users in group: " + user.username + "with id: " + (users.size() - 1));
+            System.out.print(user.username + ", ");
         }
+        System.out.println();
+
         Thread object = new Thread(new CommunicationThread(users.size() - 1, out, username, groupNumber));
         object.start();
     }

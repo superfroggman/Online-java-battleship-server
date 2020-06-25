@@ -5,17 +5,13 @@ public class Group {
 
     public ArrayList<User> users = new ArrayList<>();
     public String name;
-    public Boolean privateGroup;
-    public int maxUsers;
 
     /**
      * inserts the group name and prints that the user is created
      * @param inputName
      */
-    public Group(String inputName, Boolean inputPrivateGroup, int inputMaxUsers){
+    public Group(String inputName){
         name = inputName;
-        maxUsers = inputMaxUsers;
-        privateGroup = inputPrivateGroup;
         System.out.println("Group \"" + name + "\" created!");
     }
 
