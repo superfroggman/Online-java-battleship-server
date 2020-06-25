@@ -6,6 +6,8 @@ public class Group {
     public ArrayList<User> users = new ArrayList<>();
     public String name;
 
+    public Battleship game;
+
     /**
      * inserts the group name and prints that the user is created
      * @param inputName
@@ -13,6 +15,9 @@ public class Group {
     public Group(String inputName){
         name = inputName;
         System.out.println("Group \"" + name + "\" created!");
+
+        game = new Battleship();
+
     }
 
     /**
