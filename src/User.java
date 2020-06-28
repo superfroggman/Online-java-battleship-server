@@ -44,11 +44,11 @@ public class User {
                 if ((receiveMessage = in.readLine()) != null) { //inserts the received msg to variable
                     if (CheckUsername(receiveMessage)) { //checks if a user is already using the name
                         username = receiveMessage; //sets username of the user
-                        out.println("Username is set to " + username);
+                        out.println("usernameSet!");
                         out.flush();
                         usernameset = true; //sets the variable and kills the loop
                     } else { //if username exist and in use.
-                        out.println("Sorry, that username is taken, try again!");
+                        out.println("errorUsername!");
                         out.flush();
                     }
                 }
